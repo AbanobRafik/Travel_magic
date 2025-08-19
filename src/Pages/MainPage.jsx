@@ -1,15 +1,36 @@
 import { motion } from "framer-motion";
+import { useMediaQuery } from "react-responsive";
 
 const MainPage = () => {
+  const isDesktop = useMediaQuery({ minWidth: 768 });
+
+  // نستخدم wrapper يختار بين motion.div و div عادي
+
+  const MotionOrDiv = ({ children, ...rest }) => {
+    const isDesktop = useMediaQuery({ minWidth: 768 });
+    if (isDesktop) {
+      return <motion.div {...rest}>{children}</motion.div>;
+    }
+    return <div {...rest}>{children}</div>; // مرر rest هنا
+  };
+
+  const MotionOrH2 = ({ children, ...rest }) => {
+    const isDesktop = useMediaQuery({ minWidth: 768 });
+    if (isDesktop) {
+      return <motion.h2 {...rest}>{children}</motion.h2>;
+    }
+    return <h2 {...rest}>{children}</h2>; // برضه هنا
+  };
+
   return (
-    <main className="mt-4">
+    <main className="mt-20">
       {/* First Section */}
       <div className="px-4 sm:px-6 lg:px-20 flex flex-col md:flex-row justify-between items-center md:gap-8 lg:gap-12">
         {/* Logo + Text Section */}
-        <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
+        <MotionOrDiv
+          initial={isDesktop ? { opacity: 0, x: 50 } : {}}
+          animate={isDesktop ? { opacity: 1, x: 0 } : {}}
+          transition={isDesktop ? { duration: 0.8 } : {}}
           className="flex flex-col items-center text-center"
         >
           {/* Logo */}
@@ -29,13 +50,13 @@ const MainPage = () => {
               سافر إلى أجمل وجهات مصر بأسعار تناسب كل الفئات
             </h2>
           </div>
-        </motion.div>
+        </MotionOrDiv>
 
         {/* Image Section */}
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+        <MotionOrDiv
+          initial={isDesktop ? { opacity: 0, x: -50 } : {}}
+          animate={isDesktop ? { opacity: 1, x: 0 } : {}}
+          transition={isDesktop ? { duration: 0.8, delay: 0.3 } : {}}
           className="w-full md:w-auto min-w-[14rem] sm:min-w-[16rem] md:min-w-[20rem] lg:min-w-[24rem] max-w-[32rem]"
         >
           <img
@@ -43,17 +64,18 @@ const MainPage = () => {
             alt="Beach"
             className="rounded-lg aspect-square object-cover w-full shadow-md shadow-gray-700"
           />
-        </motion.div>
+        </MotionOrDiv>
       </div>
       {/* End of First Section */}
+
       {/* Second Section */}
       <section className="bg-neutral-200 w-full mt-12 py-12">
         <div className="px-4 sm:px-6 lg:px-20 flex flex-col md:flex-row-reverse justify-between items-center md:gap-8 lg:gap-12">
           {/* Image */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+          <MotionOrDiv
+            initial={isDesktop ? { opacity: 0, x: 50 } : {}}
+            whileInView={isDesktop ? { opacity: 1, x: 0 } : {}}
+            transition={isDesktop ? { duration: 0.8 } : {}}
             className="w-full md:w-auto min-w-[14rem] sm:min-w-[16rem] md:min-w-[20rem] lg:min-w-[24rem] max-w-[32rem]"
           >
             <img
@@ -61,16 +83,16 @@ const MainPage = () => {
               alt="Family"
               className="rounded-lg object-cover w-full shadow-md shadow-gray-700"
             />
-          </motion.div>
+          </MotionOrDiv>
 
           {/* Text */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+          <MotionOrDiv
+            initial={isDesktop ? { opacity: 0, x: -50 } : {}}
+            whileInView={isDesktop ? { opacity: 1, x: 0 } : {}}
+            transition={isDesktop ? { duration: 0.8, delay: 0.3 } : {}}
             className="flex flex-col text-right max-w-2xl"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-orange-500 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mt-5 text-orange-500 mb-4">
               كلمة مننا ليكم
             </h2>
             <p className="text-lg text-gray-700 leading-relaxed mb-4">
@@ -103,16 +125,17 @@ const MainPage = () => {
               فريق <span className="font-semibold text-blue-800">Travel </span>
               <span className="font-semibold text-amber-500">Magic</span>
             </p>
-          </motion.div>
+          </MotionOrDiv>
         </div>
       </section>
       {/* End of Second Section */}
+
       {/* Third Section */}
-      <div className="flex flex-col bg-gradient-to-r  w-full  p-6 items-center text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+      <div className="flex flex-col bg-gradient-to-r w-full p-6 items-center text-center">
+        <MotionOrDiv
+          initial={isDesktop ? { opacity: 0, y: 50 } : {}}
+          whileInView={isDesktop ? { opacity: 1, y: 0 } : {}}
+          transition={isDesktop ? { duration: 0.8 } : {}}
           className="max-w-4xl"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
@@ -129,24 +152,25 @@ const MainPage = () => {
             بنشتغل كل يوم علشان نكون أكبر منصة أونلاين للسياحة الداخلية في مصر…
             خطوة بخطوة، وثقة بثقة.
           </p>
-        </motion.div>
+        </MotionOrDiv>
       </div>
       {/* End of Third Section */}
+
       {/* Fourth Section */}
-      <div className="w-full bg-gray-50 py-16 px-6">
+      <div className="w-full bg-gray-100 py-16 px-6">
         <div className="max-w-6xl mx-auto text-center">
           {/* Title */}
-          <motion.h2
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+          <MotionOrH2
+            initial={isDesktop ? { opacity: 0, y: 40 } : {}}
+            whileInView={isDesktop ? { opacity: 1, y: 0 } : {}}
+            transition={isDesktop ? { duration: 0.6 } : {}}
             viewport={{ once: true }}
             className="text-3xl md:text-4xl font-bold text-gray-800 mb-12"
           >
             إنت هتلاقي إيه مع
             <span className="font-semibold text-blue-800"> Travel </span>
             <span className="font-semibold text-amber-500">Magic</span> ؟
-          </motion.h2>
+          </MotionOrH2>
 
           {/* Features Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -172,11 +196,11 @@ const MainPage = () => {
                 desc: "كل حاجة بنقولها واضحة من الأول: السعر، التفاصيل، والشروط… من غير مفاجآت ولا كلام صغير في الهامش",
               },
             ].map((item, i) => (
-              <motion.div
+              <MotionOrDiv
                 key={i}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: i * 0.2 }}
+                initial={isDesktop ? { opacity: 0, y: 40 } : {}}
+                whileInView={isDesktop ? { opacity: 1, y: 0 } : {}}
+                transition={isDesktop ? { duration: 0.6, delay: i * 0.2 } : {}}
                 viewport={{ once: true }}
                 className="flex flex-col items-center text-center"
               >
@@ -187,7 +211,7 @@ const MainPage = () => {
                   {item.title}
                 </h3>
                 <p className="text-gray-600">{item.desc}</p>
-              </motion.div>
+              </MotionOrDiv>
             ))}
           </div>
         </div>
