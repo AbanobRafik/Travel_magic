@@ -69,7 +69,7 @@ const MainPage = () => {
       {/* End of First Section */}
 
       {/* Second Section */}
-      <section className="bg-neutral-200 w-full mt-12 py-12">
+      <section className="bg-neutral-100 w-full mt-12 py-12">
         <div className="px-4 sm:px-6 lg:px-20 flex flex-col md:flex-row-reverse justify-between items-center md:gap-8 lg:gap-12">
           {/* Image */}
           <MotionOrDiv
@@ -157,7 +157,7 @@ const MainPage = () => {
       {/* End of Third Section */}
 
       {/* Fourth Section */}
-      <div className="w-full bg-gray-100 py-16 px-6">
+      <div className="w-full bg-neutral-100 py-16 px-6">
         <div className="max-w-6xl mx-auto text-center">
           {/* Title */}
           <MotionOrH2

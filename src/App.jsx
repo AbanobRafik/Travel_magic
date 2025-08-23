@@ -1,11 +1,9 @@
-import NavBar from "./components/NavBar";
-import MainPage from "./Pages/MainPage";
+import Layout from "./components/Layout";
 
 function App() {
   return (
     <>
-      <NavBar />
-      <MainPage />
+      <Layout />
     </>
   );
 }
