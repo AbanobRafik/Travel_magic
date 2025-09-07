@@ -91,7 +91,7 @@ const Contact = () => {
         <form onSubmit={handleSubmit} className="space-y-5">
           {formData.type === "حجز" && (
             <div>
-              <label className="block text-gray-700 mb-1 flex items-center gap-2">
+              <label className="text-gray-700 mb-1 flex items-center gap-2">
                 <MapPin size={18} className="text-amber-600" />
                 اختر المكان
               </label>
