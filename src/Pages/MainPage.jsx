@@ -23,7 +23,7 @@ const MainPage = () => {
   };
 
   return (
-    <main className="mt-20">
+    <main className="mt-12">
       {/* First Section */}
       <div className="px-4 sm:px-6 lg:px-20 flex flex-col md:flex-row justify-between items-center md:gap-8 lg:gap-12">
         {/* Logo + Text Section */}

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { NavLink } from "react-router"; // خليه من react-router-dom مش react-router
+import { NavLink } from "react-router"; 
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,17 +8,17 @@ export default function Navbar() {
 
   const links = [
     { name: "الصفحه الرئيسيه", to: "/", bold: true },
-    { name: "الغردقة والجونة", to: "/hurghada" },
-    { name: "شرم الشيخ ودهب", to: "/sharm" },
+    { name: "مرسى علم", to: "/marsaalam" },
     { name: "الاقصر واسوان", to: "/luxor" },
+    { name: "الغردقة والجونة", to: "/hurghada" },
     { name: "مرسى مطروح", to: "/matrouh" },
+    { name: "شرم الشيخ ودهب", to: "/sharm" },
     { name: "الاسكندريه و الساحل الشمالي", to: "/alexandria" },
     { name: "العلمين الجديدة والعين السخنة", to: "/new-alamein" },
     { name: "للاستفسار والحجز", to: "/contact" },
   ];
 
-  const visibleHotels = links.slice(1, 4);
-  const hiddenHotels = links.slice(4, -1);
+  const hotelLinks = links.slice(1, -1); // كل الفنادق
 
   return (
     <nav className="bg-[#f7f8f4] border-b border-gray-200 fixed top-0 w-full z-50">
@@ -38,42 +38,29 @@ export default function Navbar() {
               {links[0].name}
             </NavLink>
 
-            {/* 3 Visible Hotels */}
-            {visibleHotels.map((link, idx) => (
-              <NavLink
-                key={idx}
-                to={link.to}
-                className="text-gray-600 hover:text-gray-900"
+            {/* Dropdown Menu: كل الفنادق */}
+            <div className="relative">
+              <button
+                onClick={() => setIsHotelsOpen(!isHotelsOpen)}
+                className="text-gray-600 hover:text-gray-900 font-bold flex items-center gap-1"
               >
-                {link.name}
-              </NavLink>
-            ))}
-
-            {/* Dropdown Menu */}
-            {hiddenHotels.length > 0 && (
-              <div className="relative">
-                <button
-                  onClick={() => setIsHotelsOpen(!isHotelsOpen)}
-                  className="text-gray-600 hover:text-gray-900 font-bold flex items-center gap-1"
-                >
-                  فنادق {isHotelsOpen ? "▲" : "▼"}
-                </button>
-                {isHotelsOpen && (
-                  <div className="absolute right-0 bg-white shadow-lg mt-2 rounded-lg p-4 z-50 grid grid-cols-1 gap-4 min-w-[200px]">
-                    {hiddenHotels.map((link, idx) => (
-                      <NavLink
-                        key={idx}
-                        to={link.to}
-                        className="block text-gray-600 hover:text-gray-900"
-                        onClick={() => setIsHotelsOpen(false)}
-                      >
-                        {link.name}
-                      </NavLink>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
+                الفنادق والعروض {isHotelsOpen ? "▲" : "▼"}
+              </button>
+              {isHotelsOpen && (
+                <div className="absolute right-0 bg-white shadow-lg mt-2 rounded-lg p-4 z-50 grid grid-cols-1 gap-4 min-w-[220px]">
+                  {hotelLinks.map((link, idx) => (
+                    <NavLink
+                      key={idx}
+                      to={link.to}
+                      className="block text-gray-600 hover:text-gray-900"
+                      onClick={() => setIsHotelsOpen(false)}
+                    >
+                      {link.name}
+                    </NavLink>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* Contact link */}
             <NavLink
@@ -111,18 +98,40 @@ export default function Navbar() {
           </button>
         </div>
         <div className="flex flex-col p-4 space-y-4">
-          {links.map((link, idx) => (
-            <NavLink
-              key={idx}
-              to={link.to}
-              className={`text-gray-600 hover:text-gray-900 ${
-                link.bold ? "font-bold" : ""
-              }`}
-              onClick={() => setIsOpen(false)}
-            >
-              {link.name}
-            </NavLink>
-          ))}
+          <NavLink
+            to={links[0].to}
+            className="text-gray-600 hover:text-gray-900 font-bold"
+            onClick={() => setIsOpen(false)}
+          >
+            {links[0].name}
+          </NavLink>
+
+          {/* Mobile Dropdown */}
+          <details>
+            <summary className="cursor-pointer text-gray-600 hover:text-gray-900 font-bold">
+              الفنادق والعروض
+            </summary>
+            <div className="flex flex-col mt-2 ml-4 space-y-2">
+              {hotelLinks.map((link, idx) => (
+                <NavLink
+                  key={idx}
+                  to={link.to}
+                  className="text-gray-600 hover:text-gray-900"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.name}
+                </NavLink>
+              ))}
+            </div>
+          </details>
+
+          <NavLink
+            to={links[links.length - 1].to}
+            className="text-gray-600 hover:text-gray-900"
+            onClick={() => setIsOpen(false)}
+          >
+            {links[links.length - 1].name}
+          </NavLink>
         </div>
       </div>
     </nav>
